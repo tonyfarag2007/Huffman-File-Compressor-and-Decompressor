@@ -9,11 +9,11 @@
 
 int main() {
     int frequency[256] = {0};
-    std::ifstream file("C:\\Users\\tonyw\\Downloads\\TicTacToeProject\\stats.txt", std::ios_base::binary);
     std::string compressed = "(compressed)";
     std::cout << "Enter the path to the file: ";
-    std::filesystem::path originalFilePath = "C:\\Users\\tonyw\\Downloads\\TicTacToeProject\\stats.txt";
+    std::filesystem::path originalFilePath;
     std::cin >> originalFilePath;
+    std::ifstream file(originalFilePath, std::ios_base::binary);
     std::filesystem::path compressedFilePath = originalFilePath.parent_path().string() + "\\" + originalFilePath.stem().string() + compressed;
     compressedFilePath.replace_extension(".huff");
     char ch;
@@ -23,7 +23,7 @@ int main() {
             frequency[static_cast<unsigned char>(ch)]++;
         }
     }
-    std::ifstream inputFile("C:\\Users\\tonyw\\Downloads\\TicTacToeProject\\stats.txt", std::ios_base::binary);
+    std::ifstream inputFile(originalFilePath, std::ios_base::binary);
     generateCodes(buildHuffmanTree(frequency, 256), "", frequencyCodes);
     writeCompressedFile(&inputFile, compressedFilePath.string(),frequencyCodes);
     std::cout << "File Size: "<< std::filesystem::file_size(originalFilePath) << " bytes" << std::endl;
