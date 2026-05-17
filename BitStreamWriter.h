@@ -2,5 +2,6 @@
 #define HUFFMAN_BITSTREAMWRITER_H
 #include <fstream>
 #include <map>
-void writeCompressedFile(std:: ifstream*, std::map<char, std::string>&);
+#include <string>
+void writeCompressedFile(std:: ifstream*, std::string, std::map<char, std::string>&);
 #endif //HUFFMAN_BITSTREAMWRITER_H

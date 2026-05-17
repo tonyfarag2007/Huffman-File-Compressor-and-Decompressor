@@ -1,8 +1,9 @@
 #include "BitStreamWriter.h"
 #include <fstream>
 #include <map>
-void writeCompressedFile(std::ifstream *inputFile, std::map<char, std::string> &codes) {
-    std:: ofstream compressedFile("C:\\Users\\tonyw\\Downloads\\TicTacToeProject\\stats(compressed).txt", std::ios::binary);
+#include <filesystem>
+void writeCompressedFile(std::ifstream *inputFile, std::string filePath, std::map<char, std::string> &codes) {
+    std:: ofstream compressedFile(filePath, std::ios::binary);
     char ch;
     unsigned char buffer = '\0';
     int bitCount = 0;
