@@ -3,7 +3,7 @@
 #include <map>
 #include <filesystem>
 void writeHeader(std::ofstream &compressedFile, std::string fileExtension,
-    std::vector<int> frequency, int size, int chCount) {
+    std::vector<int> frequency, int chCount, int totalCharacters) {
     compressedFile.put(static_cast<char>(fileExtension.length()));
     compressedFile.write(fileExtension.c_str(), fileExtension.length() * sizeof(char));
     compressedFile.write(reinterpret_cast<char*>(&chCount), sizeof(int));
@@ -14,12 +14,13 @@ void writeHeader(std::ofstream &compressedFile, std::string fileExtension,
             compressedFile.write(reinterpret_cast<char*>(&frequency.at(i)), sizeof(int));
         }
     }
+    compressedFile.write(reinterpret_cast<char*>(&totalCharacters), sizeof(int));
 }
 void writeCompressedFile(std::ifstream *inputFile, std::string filePath,
     std::map<char, std::string> &codes, std::string fileExtension,
-    std::vector<int> frequency, int size, int chCount) {
+    std::vector<int> frequency, int size, int chCount, int totalCharacters) {
     std::ofstream compressedFile(filePath, std::ios::binary);
-    writeHeader(compressedFile, fileExtension, frequency, size, chCount);
+    writeHeader(compressedFile, fileExtension, frequency, chCount, totalCharacters);
     char character;
     unsigned char buffer = '\0';
     int bitCount = 0;
