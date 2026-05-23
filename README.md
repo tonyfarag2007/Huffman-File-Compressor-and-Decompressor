@@ -1,4 +1,4 @@
-# Huffman File Compressor/Decompressor
+# Huffman File Compressor and Decompressor
 
 A lossless file compression tool built in C++ that implements Huffman coding to compress and decompress any file type — including binary files like images.
 
