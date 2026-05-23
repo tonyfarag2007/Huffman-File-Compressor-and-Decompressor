@@ -23,7 +23,7 @@ int main() {
             std::cout << "Failed to open: " << compressedFilePath << std::endl;
             exit(1);
         }
-        decompressFile(file);
+        decompressFile(file, compressedFilePath);
         exit(0);
     }
     else {

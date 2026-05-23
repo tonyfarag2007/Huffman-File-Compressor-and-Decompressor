@@ -6,9 +6,11 @@
 #include <vector>
 #include <queue>
 #include <filesystem>
-void decompressFile(std::ifstream& compressedFile) {
-    std::filesystem::path decompressedFilePath = "C:\\Users\\tonyw\\Downloads\\Test.bmp";
-    std::ofstream restoredFile(decompressedFilePath, std::ios::binary);
+void decompressFile(std::ifstream& compressedFile, std::string filePath) {
+    if (filePath.find("(compressed)") != std::string::npos) {
+        filePath.erase(filePath.find("(compressed)"), 12);
+    }
+    std::filesystem::path decompressedFilePath = filePath;
     char firstChar = compressedFile.get();
     char c;
     std::string originalFileExtension = "";
@@ -17,6 +19,7 @@ void decompressFile(std::ifstream& compressedFile) {
         originalFileExtension+=c;
     }
     decompressedFilePath.replace_extension(originalFileExtension);
+    std::ofstream restoredFile(decompressedFilePath, std::ios::binary);
     int uniqueCharCount;
     compressedFile.read(reinterpret_cast<char*>(&uniqueCharCount), sizeof(int));
     std::vector<int>restoredFrequency(256, 0);
