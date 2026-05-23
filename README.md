@@ -13,7 +13,7 @@ Huffman coding is a lossless data compression algorithm that assigns shorter bin
 - **Self-describing compressed format**: the `.huff` file stores everything needed to reconstruct the original, including the original file extension and frequency table, automatic serialization with no external metadata required
 - **Accurate padding handling**: stores total character count in the header to avoid phantom bits corrupting the end of decompressed files
 - **Dynamic output naming**: decompressed files are restored to their original filename and extension automatically
-- **Minimum file size enforcement**: rejects files under 1000 bytes, since the header overhead would make the compressed file larger than the original
+- **Minimum file size enforcement**: rejects files under 1000 bytes, since the header overhead would make the compressed file larger than the original given the small size
 - **Input validation**: checks for valid file paths, correct `.huff` extension on decompression, and invalid menu input
 
 ## How It Works
