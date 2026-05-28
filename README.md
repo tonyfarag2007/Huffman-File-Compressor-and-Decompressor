@@ -88,3 +88,6 @@ Output: `photo.bmp` restored in the same directory.
 - Works on real binary data, not just text
 - The compressed format is self-contained and portable, no external configuration needed to decompress due to automatic metadata
 - Useful for understanding how real compression tools like ZIP and DEFLATE work under the hood at the entropy coding layer
+
+Note: Some file types do not get compressed very well or even increase in size due to the nature of the file types. Some
+file types (such as PDF and PNG files) already undergo compression algorithms.
