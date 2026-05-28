@@ -18,21 +18,27 @@ int main() {
         std::cin >> choice;
     }
     if (choice == 'D' || choice == 'd') {
-        std::cout<<"Enter the path to the compressed .huff file" <<std::endl;
-        std::string compressedFilePath;
-        std::cin.ignore();
-        std::getline(std::cin, compressedFilePath);
-        std::filesystem::path originalFilePath = compressedFilePath;
-        std::ifstream file(compressedFilePath, std::ios_base::binary);
-        if (originalFilePath.extension() != ".huff") {
-            std::cout <<"ERROR: not a .huff file!" << std::endl;
-            exit(1);
-        }
-        if (!file.is_open()) {
-            std::cout << "ERROR: failed to open: " << compressedFilePath << std::endl;
-            exit(1);
-        }
-        decompressFile(file, compressedFilePath);
+        bool validInput = false;
+        do {
+            std::cout<<"Enter the path to the compressed .huff file" <<std::endl;
+            std::string compressedFilePath;
+            std::cin.ignore();
+            std::getline(std::cin, compressedFilePath);
+            std::filesystem::path originalFilePath = compressedFilePath;
+            std::ifstream file(compressedFilePath, std::ios_base::binary);
+            if (originalFilePath.extension() != ".huff") {
+                std::cout <<"ERROR: not a .huff file!" << std::endl;
+                exit(1);
+            }
+            else if (!file.is_open()) {
+                std::cout << "ERROR: failed to open: " << compressedFilePath << std::endl;
+                exit(1);
+            }
+            else {
+                validInput = true;
+                decompressFile(file, compressedFilePath);
+            }
+        }while (!validInput);
         exit(0);
     }
     else {
@@ -59,8 +65,8 @@ int main() {
             }
         }
         else {
-            std::cout << "CRITICAL: Could not open file: " << originalFilePath << std::endl;
-            exit(1);
+                std::cout << "CRITICAL: Could not open file: " << originalFilePath << std::endl;
+                exit(1);
         }
         int totalCharacters = 0;
         for (int i = 0; i < 256; i++) {
@@ -78,7 +84,6 @@ int main() {
         std::cout << "Compressed File Size: " << std::filesystem::file_size(compressedFilePath) << " bytes" << std::endl;
         std::cout << "That is a " << 100.0 - (static_cast<double>(std::filesystem::file_size(compressedFilePath)) /
             static_cast<double>(std::filesystem::file_size(originalFilePath)) * 100) << "% decrease!" <<std::endl;
-
         file.close();
     }
     return 0;
